@@ -1,1 +1,1 @@
-# mstr-slack-boy
+# mstr-slack-bot

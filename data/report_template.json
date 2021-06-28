@@ -1,0 +1,156 @@
+{
+	"blocks": [
+		{
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": ":newspaper:  MicroStrategy Reports  :newspaper:"
+			}
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"text": "BI Team Announcements",
+					"type": "mrkdwn"
+				}
+			]
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": " :loud_sound: *IN CASE YOU MISSED IT* :loud_sound:"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "The reports are refreshed daily as soon as we get the data. You can review the executions with the given status."
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Learn More",
+					"emoji": true
+				},
+				"url": "https://example.com"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":calendar: |   *COMPLETED*  | :calendar: "
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "`11/20-11/22` *Beet the Competition* _ annual retreat at Schrute Farms_"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "RSVP",
+					"emoji": true
+				}
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "`12/01` *Toby's Going Away Party* at _Benihana_"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Learn More",
+					"emoji": true
+				}
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "`11/13` :pretzel: *Pretzel Day* :pretzel: at _Scranton Office_"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "RSVP",
+					"emoji": true
+				}
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": ":calendar: |   *IN-PROGRESS*  | :calendar: "
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "`10/21` *Conference Room Meeting*"
+			},
+			"accessory": {
+				"type": "button",
+				"text": {
+					"type": "plain_text",
+					"text": "Watch Recording",
+					"emoji": true
+				}
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*FOR YOUR INFORMATION*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "<https://microstrategy.prod.gaikai.com/MicroStrategy/servlet/mstrWeb|MicroStrategy Web>\n\n<https://microstrategy.prod.gaikai.com/MicroStrategyLibrary/app|MicroStrategy Library>",
+				"verbatim": false
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "context",
+			"elements": [
+				{
+					"type": "mrkdwn",
+					"text": ":pushpin: Do you have something to include in the report? Here's *how to submit content*."
+				}
+			]
+		}
+	]
+}

@@ -5,16 +5,23 @@ import getopt
 logging.basicConfig(level=logging.DEBUG)
 
 import os
+import json
+
+from pathlib import Path
+from dotenv import load_dotenv
 
 from slack_bolt.app.async_app import AsyncApp
 from slack_bolt.adapter.socket_mode.async_handler import AsyncSocketModeHandler
 
 import constants as c
 
-# Install the Slack app and get xoxb- token in advance
-#app = AsyncApp(token=os.environ["SLACK_BOT_TOKEN"])
-app = AsyncApp(token=c.SLACK_BOT_TOKEN)
+#Get environment constants
+env_path = Path('.') / '.env'
+load_dotenv(dotenv_path=env_path)
 
+
+# Install the Slack app and get xoxb- token in advance
+app = AsyncApp(token=os.environ["SLACK_BOT_TOKEN"])
 
 @app.command("/hello-socket-mode")
 async def hello_command(ack, body):
@@ -26,209 +33,82 @@ async def hello_command(ack, body):
 async def event_test(event, say):
     await say(f"Hi there, <@{event['user']}>!")
 
-async def publish_reports(channel, report_url, file_path):
-    
-    #await app.client.files_upload(
-    #    channels=channel,
-    #    initial_comment=f"For more details: {report_url}",
-    #    file=file_path
-    #)
+async def upload_file(channel):
+	response = await app.client.files_upload(
+        channels=channel,
+        initial_comment="My initial comment",
+        file=os.environ["FILE_TO_UPLOAD"]
+    )
+	return response
 
-    await app.client.chat_postMessage(
-        channel=channel,
+async def publish_reports(channel, json_string):
+
+	response = await asyncio.wait_for(app.client.files_upload(
+        channels=channel,
+        initial_comment="My initial comment",
+        file="data/fiole.xlsx"
+    ), 120.0)
+	
+	channel_id = list(response['file']['shares']['public'].keys())[0]
+	print(channel_id)
+	ts = response['file']['shares']['public'][channel_id][0]['ts']
+
+	print(ts)
+
+	await app.client.chat_update(
+        channel=channel_id,
         text='text',
-        blocks= [
-		{
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": ":newspaper:  Paper Company Newsletter  :newspaper:"
-			}
-		},
-		{
-			"type": "context",
-			"elements": [
-				{
-					"text": "*November 12, 2019*  |  Sales Team Announcements",
-					"type": "mrkdwn"
-				}
-			]
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": " :loud_sound: *IN CASE YOU MISSED IT* :loud_sound:"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "Replay our screening of *Threat Level Midnight* and pick up a copy of the DVD to give to your customers at the front desk."
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Watch Now",
-					"emoji": True
-				}
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":calendar: |   *PENDING REPORTS*  | :calendar: "
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "`11/20-11/22` *Beet the Competition* _ annual retreat at Schrute Farms_"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "RSVP",
-					"emoji": True
-				}
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "`12/01` *Toby's Going Away Party* at _Benihana_"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Learn More",
-					"emoji": True
-				}
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "`11/13` :pretzel: *Pretzel Day* :pretzel: at _Scranton Office_"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "RSVP",
-					"emoji": True
-				}
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": ":calendar: |   *AVAILABLE REPORTS*  | :calendar: "
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "`10/21` *Conference Room Meeting*"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Watch Recording",
-					"emoji": True
-				}
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*FOR YOUR INFORMATION*"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "MicroStrategy Links \n\n https://microstrategy.prod.gaikai.com/MicroStrategy/servlet/mstrWeb \n\n https://microstrategy.prod.gaikai.com/MicroStrategyLibrary/app",
-				"verbatim": False
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "Please join me in welcoming our 3 *new hires* to the Paper Company family! \n\n *Robert California*, CEO \n\n *Ryan Howard*, Temp \n\n *Erin Hannon*, Receptionist "
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "context",
-			"elements": [
-				{
-					"type": "mrkdwn",
-					"text": ":pushpin: Do you have something to include in the daily report? Here's *how to submit content*."
-				}
-			]
-		}
-	    ]
+		ts=ts,
+        blocks= json_string['blocks']
     )
 
+async def update_chat(channel, json_string,result):
+    
+	ts = result['file']['shares']['public'][channel][0]['ts']
 
+	await app.client.chat_update(
+        channel=channel,
+        text='text',
+		ts=ts,
+        blocks= json_string['blocks']
+    )
+
+async def postMessage(channel,json_string):
+	await app.client.chat_postMessage(
+        channel=channel,
+        text='text',
+        blocks= json_string['blocks']
+    )
+	
 async def main(argv):
-  
-    #User input
-    try:
-      opts, args = getopt.getopt(argv,"hc:m:f:",["msg=","file="])
-    except getopt.GetoptError:
-        print('-c <channel> -m <message> -f <file>')
-        return 0
-    for opt, arg in opts:
-        if opt == '-h':
-            print('-u <url> -f <file>')
-            return 0
-        elif opt in ("-c", "--channel"):
-            channel = arg
-        elif opt in ("-m", "--msg"):
-            message = arg
-        elif opt in ("-f", "--file"):
-            file_path = arg
 
-    await publish_reports(channel,message, file_path)
+	try:
+		opts, args = getopt.getopt(argv,"hc:m:",["channel=","msg="])
+	except getopt.GetoptError:
+		print('-c <channel> -m <message file>')
+		return 0
+    	
+	for opt, arg in opts:
+		if opt == '-h':
+			print('-c <channel> -m <message file>')
+			return 0
+		elif opt in ("-c", "--channel"):
+			channel = arg
+		elif opt in ("-m", "--msg"):
+			message_file = arg
+		
+
+	# Open the slack message file
+	with open(message_file) as file:
+		# Load its content and make a new dictionary
+		slack_message = json.load(file)
 
 
-    #handler = AsyncSocketModeHandler(app, c.SLACK_APP_TOKEN)
+	#await update_chat(channel, slack_message, result)
+	#await publish_reports(channel, slack_message)
+	await postMessage(channel, slack_message)
+	#handler = AsyncSocketModeHandler(app, os.environ["SLACK_APP_TOKEN"])
     #await handler.start_async()
-
-
 
 if __name__ == "__main__":
     import asyncio

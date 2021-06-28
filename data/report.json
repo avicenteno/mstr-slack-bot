@@ -1,0 +1,45 @@
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"emoji": true,
+				"text": "Please find today's daily State of PlayStation Now."
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*<https://microstrategy.prod.gaikai.com/MicroStrategy/servlet/mstrWeb?evt=2048001&src=mstrWeb.2048001&documentID=EE5FEFB343018494E5E055B45BE81734&currentViewMedia=1&visMode=0&Server=ENV-229068LAIO2USW1&Project=CGEI%20-%20BI&Port=0&share=1|State of PS Now>*\nCertified: Yes\nExport: <https://microstrategy.prod.gaikai.com/MicroStrategy/servlet/mstrWeb?evt=3069&src=mstrWeb.3069&executionMode=4&documentID=EE5FEFB343018494E5E055B45BE81734|Excel Format>\nReach out to us on Slack: <slack://channel?team=T0240UPCR1S&id=C023RMPS345|#sony-demo> for questions and comments."
+			},
+			"accessory": {
+				"type": "image",
+				"image_url": "https://cdn2.iconfinder.com/data/icons/round-varieties/60/Rounded_-_High_Ultra_Colour19_-_Graph-512.png",
+				"alt_text": "calendar thumbnail"
+			}
+		},
+		{
+			"type": "divider"
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*FOR YOUR INFORMATION*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "<https://microstrategy.prod.gaikai.com/MicroStrategy/servlet/mstrWeb|MicroStrategy Web>\n\n<https://microstrategy.prod.gaikai.com/MicroStrategyLibrary/app|MicroStrategy Library>",
+				"verbatim": false
+			}
+		}
+	]
+}
